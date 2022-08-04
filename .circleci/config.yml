@@ -232,23 +232,8 @@ orbs:
 #             - get_last_deployment_id
 #             - promote_to_production
 
-obs:
-  myjob1:  # Choose any name, such as `build`
-      # The primary container, where your job's commands will run
-      docker:
-        - image: 
-      steps:
-        - checkout # check out the code in the project directory
-        - run: echo "hello world" # run the `echo` command
-# Sequential workflow
-workflows:
-  # Name the workflow
-  myWorkflow:
-    jobs:
-      - myjob1
-      - myjob2
-
-create_infrastructure: 
+jobs:
+  create_infrastructure: 
     docker:
       - image: amazon/aws-cli
     steps:
@@ -264,3 +249,9 @@ create_infrastructure:
       # Uncomment the line below if you want to fail the current step
       # - run: return 1
       - destroy_environment
+# Sequential workflow
+workflows:
+  # Name the workflow
+  myWorkflow:
+    jobs:
+      - create_infrastructure
